@@ -4,6 +4,11 @@ import Header from './components/Header';
 import Rock from './components/Rock';
 import NewRockForm from './components/NewRockForm';
 import Routes from './Routes';
+import rockStevenson from './assets/rock.png'
+import rockStevensonEyes from './assets/rockEyes.png'
+import rockStevensonAngry from './assets/rockAngry.png'
+import rockStevensonAngryPupils from './assets/rockAngryPupils.png'
+import rockStevensonAlive from './assets/rockAlive.png'
 
 
 class App extends React.Component {
@@ -15,45 +20,50 @@ class App extends React.Component {
         name: 'Rock Dmitrius Stevenson',
         hunger: 60,
         happiness: 30,
-        rest: 300,
+        rest: 90,
+        image: rockStevenson
       }
     };
     this.handleAddingNewRock = this.handleAddingNewRock.bind(this);
     this.handlePettingRock = this.handlePettingRock.bind(this)
     this.handleFeedingRock = this.handleFeedingRock.bind(this)
   }
-  
-  // componentDidMount() {
-  //   console.log("I'm getting a call. Hold on.");
-  //   this.waitTimeUpdateTimer = setInterval(() =>
-  //     this.updateRockStats(),
-  //      2000);
-  // }
+
   
   updateRockStats = () => {
     const newRockStuff = {...this.state.rockStuff}
-    newRockStuff.happiness += 1;
-    newRockStuff.hunger += 1;
-    newRockStuff.rest -= 1;
-    this.setState({ rockStuff: newRockStuff });
+    newRockStuff.happiness += 2;
+    newRockStuff.hunger += 2;
+    newRockStuff.rest -= 2;
+    this.handleRockStats(newRockStuff)
   }
   
   handleDressingRock = () => {
     const newRockStuff = {...this.state.rockStuff};
     newRockStuff.rest += 5;
-    this.setState({rockStuff: newRockStuff});
+    this.handleRockStats(newRockStuff)
   }
   
   handleFeedingRock() {
     const newRockStuff = {...this.state.rockStuff };
     newRockStuff.hunger -= 5;
-    this.setState({rockStuff: newRockStuff});
+    this.handleRockStats(newRockStuff)
   }
   
   handlePettingRock() {
-    const newrockStuff = {...this.state.rockStuff };
-    newrockStuff.happiness -= 5;
-    this.setState({rockStuff: newrockStuff});
+    const newRockStuff = {...this.state.rockStuff };
+    newRockStuff.happiness -= 5;
+    newRockStuff.rest -= 5;
+    this.handleRockStats(newRockStuff)
+  }
+  
+  handleRockStats = (newRockStuff) => {
+    // const newRockStuff = {...this.state.rockStuff };
+    if (newRockStuff.hunger < 0 || newRockStuff.hunger > 99 || newRockStuff.happiness < 0 || newRockStuff.happiness > 99 || newRockStuff.rest < 0 || newRockStuff.rest > 99) {
+      newRockStuff.image = rockStevensonAlive;
+      clearInterval(this.waitTimeUpdateTimer);
+    }
+    this.setState({ rockStuff: newRockStuff });
   }
   
   handleAddingNewRock(newName) {

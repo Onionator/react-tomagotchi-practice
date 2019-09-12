@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import rockStevenson from '../assets/rockStevenson.png'
+
+
 
 
 function Rock(props) {
   const careNot = {
       textAlign: "center",
-      backgroundColor: "red",
+    
   }
+  console.log(props.rockStuff);
   return(
     <div style={careNot}>
-      <div >
-        <img alt="It's a Rock" src={rockStevenson} />
-      </div>
+      <p><img alt="It's a Rock" src={props.rockStuff.image} /></p>
       <h1>Name: {props.rockStuff.name}</h1>
       <h2>Hunger: {props.rockStuff.hunger}</h2>
       <h2>Happiness: {props.rockStuff.happiness}</h2>
@@ -33,7 +33,8 @@ Rock.propTypes = {
   rest: PropTypes.number,
   onPettingRock: PropTypes.func,
   onFeddingRock: PropTypes.func,
-  onDressingRock: PropTypes.func
+  onDressingRock: PropTypes.func,
+  image: PropTypes.string
 };
 
 export default Rock;
